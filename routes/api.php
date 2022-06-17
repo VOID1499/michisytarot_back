@@ -29,6 +29,7 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
 
 Route::post('listarProductos',[ProductoController::class,'listarProductos']);
+Route::post('crearProducto',[ProductoController::class,'crearProducto']);
 
 
 

@@ -53,7 +53,16 @@ class AuthController extends Controller
                ],200);
 
         }catch(Exception $e){
-
+            $error =  $e->getCode();
+            $mensajeError = $e->getMessage();
+            if ($request->error) {
+                $error = $request->error;
+            }
+    
+            return response()->json([
+                'code' => $error,
+                'message' => $mensajeError
+            ],  500);
         }
      
 
