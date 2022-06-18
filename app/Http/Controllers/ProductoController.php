@@ -6,6 +6,7 @@ use App\Models\Producto;
 use Exception;
 use stdClass;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 use Illuminate\Http\Request;
 
@@ -160,5 +161,61 @@ class ProductoController extends Controller
             ],  500);
         }
     }
+
+
+    public function editarProducto(Request $request){
+
+        $validator = Validator::make($request->all(), [
+            'id' => 'required|numeric',
+            'nombre' => [
+                'required',
+                'max:255',
+                Rule::unique('productos')->ignore($request->id,'id')],
+            'descripcion' => 'max:255',
+            'categorias_id' => 'required|numeric',
+            'estado' => 'numeric|min:0|max:1',
+        ]);
+
+        if($validator->fails()){
+            return response()->json([
+                'code'=> 1,
+                'message'=>  $validator->errors(),
+            ],400);
+        }
+
+        try {
+            
+        $producto =  Producto::find($request->id);
+     
+        $producto->nombre = $request->nombre;
+        $producto->descripcion = $request->descripcion;
+        $producto->precio = $request->precio;
+        $producto->estado = $request->estado;
+        $producto->categorias_id = $request->categorias_id;
+        $producto->updated_at = now();
+
+        $producto->save();
+
+            return response()->json([
+                "code" => 0,
+                "message" => "producto editado",
+                "producto" => $producto
+            ],200);
+
+        } catch (Exception $e) {
+            $error =  $e->getCode();
+            $mensajeError = $e->getMessage();
+            if ($request->error) {
+                $error = $request->error;
+            }
+    
+            return response()->json([
+                'code' => $error,
+                'message' => $mensajeError
+            ],  500);
+        }
+    }
+
+
 
 }

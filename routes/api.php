@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\CategoriaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,6 +31,14 @@ Route::group(['middleware'=>['auth:sanctum']],function(){
 
 Route::post('listarProductos',[ProductoController::class,'listarProductos']);
 Route::post('crearProducto',[ProductoController::class,'crearProducto']);
+Route::post('editarProducto',[ProductoController::class,'editarProducto']);
+
+
+
+
+Route::post('listarCategorias',[CategoriaController::class,'listarCategorias']);
+Route::post('crearCategoria',[CategoriaController::class,'crearCategoria']);
+Route::post('editarCategoria',[CategoriaController::class,'editarCategoria']);
 
 
 
