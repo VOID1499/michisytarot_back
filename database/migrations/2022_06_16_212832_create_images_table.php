@@ -16,7 +16,10 @@ class CreateImagesTable extends Migration
         Schema::create('images', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->longText('ruta');
+            $table->longText('url');
+
+            $table->unsignedBigInteger('productos_id');
+            $table->foreign('productos_id')->references('id')->on('productos');
 
 
         });

@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\ImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +40,11 @@ Route::post('editarProducto',[ProductoController::class,'editarProducto']);
 Route::post('listarCategorias',[CategoriaController::class,'listarCategorias']);
 Route::post('crearCategoria',[CategoriaController::class,'crearCategoria']);
 Route::post('editarCategoria',[CategoriaController::class,'editarCategoria']);
+
+
+
+Route::post('subirImagen',[ImageController::class,'subirImagen']);
+
 
 
 
